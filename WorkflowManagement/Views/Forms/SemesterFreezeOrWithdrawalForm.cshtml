@@ -1,0 +1,69 @@
+﻿
+@{
+    Layout = "~/Views/Account/AccountLayout.cshtml";
+    ViewBag.Title = "Semester Freeze/Withdrawal Form";
+    ViewBag.username = Session["Name"];
+}
+
+<div class="container">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="jumbotron">
+            <h3>Semester Freeze/Withdraw Form</h3>
+            <form method="post" action="SemesterFreezeOrWithdrawFormSubmission">
+                <div class="form-group">
+                    <label for="username">Full Name:</label>
+                    <input type="text" name="name" class="form-control" id="username" value="@ViewBag.fullname" />
+                    <span style="color: red; font-size: 16px">@ViewBag.fullNameError</span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Rollnumber:</label>
+                    <input type="text" name="rollnumber" class="form-control" id="password" value=@Session["username"] disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="reasons">Reason(s):</label>
+                    <textarea rows="3" cols="50" type="password" name="reasons" class="form-control" id="reasons">@ViewBag.reasons</textarea>
+                    <span style="color: red; font-size: 16px">@ViewBag.reasonsError</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="checkboxes">Semester to freeze/withdraw:<br><sub>Tick which ever is applicable</sub></label>
+                    <table name="checkboxes" class="table table-condensed">
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>4</td>
+                                <td>5</td>
+                                <td>6</td>
+                                <td>7</td>
+                                <td>8</td>
+                            </tr>
+                            <tr>
+                                <td><input type="checkbox" name="checkbox1" id="checkbox1" @ViewBag.cBox1/></td>
+                                <td><input type="checkbox" name="checkbox2" id="checkbox2" @ViewBag.cBox2/></td>
+                                <td><input type="checkbox" name="checkbox3" id="checkbox3" @ViewBag.cBox3/></td>
+                                <td><input type="checkbox" name="checkbox4" id="checkbox4" @ViewBag.cBox4/></td>
+                                <td><input type="checkbox" name="checkbox5" id="checkbox5" @ViewBag.cBox5/></td>
+                                <td><input type="checkbox" name="checkbox6" id="checkbox6" @ViewBag.cBox6/></td>
+                                <td><input type="checkbox" name="checkbox7" id="checkbox7" @ViewBag.cBox7/></td>
+                                <td><input type="checkbox" name="checkbox8" id="checkbox8" @ViewBag.cBox8/></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <span style="color: red; font-size: 16px">@ViewBag.selectedSemesterError</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" class="form-control" id="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" disabled />
+                </div>
+
+                <button type="submit" class="btn btn-lg btn-default">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>

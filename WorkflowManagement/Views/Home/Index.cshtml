@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = "Login";
+}
+
+<div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+        <div class="jumbotron">
+            <h3>Workflow Management System</h3>
+            <form method="post" action="/Home/Login">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" name="Username" class="form-control" id="username" />
+                </div>
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" name="Password" class="form-control" id="password" />
+                </div>
+                <button type="submit" class="btn btn-lg btn-default">Login</button>
+            </form>
+        </div>   
+    </div>
+    <div class="col-md-4">
+    </div>
+</div>

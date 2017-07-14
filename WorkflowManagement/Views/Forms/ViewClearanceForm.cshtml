@@ -1,0 +1,90 @@
+﻿@model WorkflowManagement.Models.ClearanceFormApplication
+@{    
+    Layout = "~/Views/Account/AccountLayout.cshtml";
+    ViewBag.username = Session["Name"];
+    ViewBag.Title = @Model.Application.ApplicationID;
+}
+
+<div class="container">
+    <h2>Clearance Form</h2>
+    <div class="col-md-5">
+        @{
+            if(Model == null)
+            {
+                <h3>You do not have access to this application</h3>
+            }
+            else
+            {
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr><th>Application ID</th><td>@Model.Application.ApplicationID</td></tr>
+                        <tr><th>Applicant Name</th><td>@Model.Application.FullName</td></tr>
+                        <tr><th>Roll Number</th><td>@Model.RollNumber</td></tr>
+                        <tr><th>Dated</th><td>@Model.Application.CreatedOn</td></tr>
+                        <tr><th>Reason(s)</th><td>@Model.Application.Reasons</td></tr>
+                        <tr><th>Final Result Date</th><td>@Model.FinalResultDate.ToString("dd-MMM-yyyy")</td></tr>
+                        <tr><th>Secretary DC Remarks</th><td>@Model.WorkFlows.ElementAt(0).Remarks</td></tr>
+                        <tr><th>Asst. Treasurer Remarks</th><td>@Model.WorkFlows.ElementAt(1).Remarks</td></tr>
+                        <tr><th>Sr. Librarian Remarks</th><td>@Model.WorkFlows.ElementAt(2).Remarks</td></tr>
+                        <tr><th>Sr. Network Admin Remarks</th><td>@Model.WorkFlows.ElementAt(3).Remarks</td></tr>
+                        <tr><th>Exam Coordinator Remarks</th><td>@Model.WorkFlows.ElementAt(4).Remarks</td></tr>
+                        <tr><th>Program Coordinator Remarks</th><td>@Model.WorkFlows.ElementAt(5).Remarks</td></tr>
+                        <tr><th>Main Library NC Remarks</th><td>@Model.WorkFlows.ElementAt(6).Remarks</td></tr>
+                        <tr><th>Student Affairs Coordinator Remarks</th><td>@Model.WorkFlows.ElementAt(7).Remarks</td></tr>
+                    </tbody>
+                </table>
+            }
+        }
+
+    </div>
+    <div class="col-md-5">
+        @{ 
+            if(Model != null && !Session["Designation"].Equals("Student"))
+            {
+                int temp = Convert.ToInt32(Session["UserID"]);
+                int indxWeWant = 0;
+                for (int i = 0; i < Model.WorkFlows.Count; i++)
+                {
+                    if (Model.WorkFlows.ElementAt(i).ApproverID == temp)
+                    {
+                        indxWeWant = i;
+                    }
+                }
+
+                if (Model.WorkFlows.ElementAt(indxWeWant).Status == 1)
+                {
+                    <div class="jumbotron">
+                    <form action="/Forms/ClearanceFormUpdation?id=@Model.Application.ApplicationID" method="post">
+                        <label>Your remarks here</label>
+                        <textarea name="remarks"></textarea><br />
+                        <input type="radio" name="option" value="reject" />Reject
+                        <input type="radio" name="option" value="accept" />Accept<br />
+                        <input type="submit" class="btn btn-lg btn-primary" />
+                   </form>
+                   <span style="font-size:14px;">Note: In order complete your transaction, you must give some remarks and select either of the two provided options</span>
+                   </div>
+                }
+                else
+                {
+                    <h3>This application is not assigned to you yet. Hence, you cannot give your remarks</h3>
+                }
+            }else if(Model != null && Session["Designation"].Equals("Student"))
+            {
+                if(Model.Application.Status == 1)
+                {
+                    <h2>Status: <span style="color: blue">Pending</span></h2>
+                }
+                else if (Model.Application.Status == 2)
+                {
+                    <h2>Status: <span style="color: green">Accepted</span></h2>
+                }
+                else if (Model.Application.Status == 3)
+                {
+                    <h2>Status: <span style="color: red">Rejected</span></h2>
+                }
+            }
+        }
+    </div>
+    <div class="col-md-2"></div>
+
+</div>

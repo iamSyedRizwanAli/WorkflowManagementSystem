@@ -1,0 +1,46 @@
+﻿
+@{
+    Layout = "~/Views/Account/AccountLayout.cshtml";
+    ViewBag.Title = "Clearance Form";
+    ViewBag.username = Session["Name"];
+}
+
+<div class="container"> 
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
+        <div class="jumbotron">
+            <h2>Clearance Form</h2>
+            <form method="post" action="/Forms/ClearanceFormSubmission">
+                <div class="form-group">
+                    <label for="username">Full Name:</label>
+                    <input type="text" name="name" class="form-control" id="username" value="@ViewBag.fullname"/>
+                    <span style="color: red; font-size: 16px">@ViewBag.fNameError</span>
+                </div>
+                <div class="form-group">
+                    <label for="password">Rollnumber:</label>
+                    <input type="text" name="rollnumber" class="form-control" id="password" value=@Session["username"] disabled />
+                </div>
+
+                <div class="form-group">
+                    <label for="reasons">Reason(s) leaving the college:</label>
+                    <textarea rows="3" cols="50" type="password" name="reasons" class="form-control" id="reasons" >@ViewBag.reasons</textarea>
+                    <span style="color: red; font-size: 16px">@ViewBag.reasonError</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Final Result Date:</label>
+                    <input type="date" name="finalresultdate" class="form-control" id="date" value="@ViewBag.finalResultDate"/>
+                    <span style="color: red; font-size: 16px">@ViewBag.finalResultDateError</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" class="form-control" id="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" disabled/>
+                </div>
+
+                <button type="submit" class="btn btn-lg btn-default">Submit</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-md-3"></div>
+</div>

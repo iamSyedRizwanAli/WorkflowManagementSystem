@@ -1,0 +1,50 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header"><a class="navbar-brand">Workflow System</a></div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <div class="col-sm-3 col-md-3">
+                    <form class="navbar-form" role="search" action="/Forms/Search" method="post">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Search application by Id" name="q" />
+                            <div class="input-group-btn">
+                                <button class="btn btn-default" type="submit">
+                                    <i class="glyphicon glyphicon-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>@ViewBag.username</a>
+                    </li>
+                    <li id="HomeLink" class="active">
+                        <a href="~/Account/Index">Home</a>
+                    </li>
+                    <li>
+                        <a href="~/Account/Logout">Sign out</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div>
+        @RenderBody()
+    </div>
+</body>
+<footer>
+    @RenderSection("scripts", false)
+</footer>
+</html>

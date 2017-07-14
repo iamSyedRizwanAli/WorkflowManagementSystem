@@ -1,0 +1,54 @@
+﻿@model List<WorkflowManagement.Models.WorkFlowApplicatioInformation>
+@{
+    Layout = "~/Views/Account/AccountLayout.cshtml";
+    ViewBag.username = Session["Name"];
+}
+
+<div class="row">
+    <div class="col-md-8">
+        <h2>Applications</h2>
+        <table class="table">
+            <tbody>
+            <thead><tr><th>Application ID</th><th>Applicant Name</th><th>Created On</th><th>Status</th></tr></thead>
+            @{
+                if (Model.Count == 0)
+                {
+                    <td>There are no applications</td>
+                }
+                else {
+                    for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>@Model.ElementAt(i).Application.ApplicationID</td>
+                            <td>@Model.ElementAt(i).Application.FullName</td>
+                            <td>@Model.ElementAt(i).Application.CreatedOn</td>
+                            @{
+                                int x = Session["Designation"].Equals("Student") ? Model.ElementAt(i).Application.Status : Model.ElementAt(i).Workflow.Status;
+                                if (x == 1)
+                                {<td>Pending</td>}
+                                else if (x == 2)
+                                {<td> Approved </td>}
+                                else if (x == 3)
+                                {<td> Rejected </td>}
+                                else if (x == 4)
+                                {<td> Not Assigned</td>}
+
+                            }
+                            <td>@{
+                                if (Model.ElementAt(i).Application.FormID == 1)
+                                {
+                                    <a class="btn btn-primary" href="/Forms/ViewClearanceForm?id=@Model.ElementAt(i).Application.ApplicationID">View</a>
+                                }
+                                else if (Model.ElementAt(i).Application.FormID == 9)
+                                {
+                                    <a class="btn btn-primary" href="/Forms/ViewSemesterFreezeForm?id=@Model.ElementAt(i).Application.ApplicationID">View</a>
+                                }
+                            }</td>
+                        </tr>
+                     }
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
